@@ -20,6 +20,7 @@ public class MainFrame extends JFrame{
 	private JTable table;
 	JButton btnSil, btnVazgec, btnTamam, btnGncelle;
 	boolean silSelected=false, guncelleSelected=false;
+	private JButton btnExitDatabase;
 	public MainFrame() throws SQLException{
 		initialize();
 	}
@@ -187,5 +188,17 @@ public class MainFrame extends JFrame{
 		btnVazgec.setEnabled(false);
 		btnTamam.setEnabled(false);
 		table.setEnabled(false);
+		
+		btnExitDatabase = new JButton("Exit DB");
+		btnExitDatabase.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//yeni ekran acilir.
+				GirisFrame grsfr = new GirisFrame();
+				grsfr.setVisible(true);
+				MainFrame.this.setVisible(false);
+			}
+		});
+		btnExitDatabase.setBounds(315, 214, 89, 23);
+		getContentPane().add(btnExitDatabase);
 	}
 }
