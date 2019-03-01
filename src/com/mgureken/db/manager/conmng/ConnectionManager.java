@@ -11,7 +11,7 @@ public class ConnectionManager {
 	private Connection conn;
 	private String url="jdbc:postgresql://127.0.0.1:5432/KullaniciYonetimi";
 	private String username="postgres";
-	private String password="root";
+	private String password="sifre123";
 	
 	private ConnectionManager() throws SQLException{
 		//connection acma islemi

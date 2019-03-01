@@ -20,7 +20,7 @@ public class UserDAO {
 		Connection conn = temp.getConnection();
 		Statement stmt;
 		stmt = conn.createStatement();
-		String sql = "select id, usrname, password from kullanici where usrname= '"+username+"'";
+		String sql = "select id, usrname, password from kullanici where usrname= '"+username+"' and deleted=false";
 		System.out.println(sql);
 		ResultSet rs = stmt.executeQuery(sql);
 		System.out.println(sql);
@@ -35,15 +35,54 @@ public class UserDAO {
 		}
 		return usr;
 	}
+
+	public int updateUser(String username, int id, String password) throws SQLException
+	{
+		ConnectionManager temp = ConnectionManager.getInstance();
+		Connection conn = temp.getConnection();
+		Statement stmt = conn.createStatement();
+		String sql = "update kullanici set usrname='"+username+"', password="+password+" where id="+id;
+		System.out.println("update:"+sql);
+		int count = stmt.executeUpdate(sql);
+		if(count<=0)
+		{
+			System.out.println("Update islemi gerceklesmedi!...");
+		}
+		else
+		{
+			System.out.println("Update iIslem gerceklesti.");
+		}
+		return count;
+	}
+	
+	public int deleteUser(int id) throws SQLException
+	{
+		ConnectionManager temp = ConnectionManager.getInstance();
+		Connection conn = temp.getConnection();
+		Statement stmt = conn.createStatement();
+		String sql = "update kullanici set deleted=true where id="+id;
+		System.out.println("delete: "+sql);
+		int count = stmt.executeUpdate(sql);
+		if(count<=0)
+		{
+			System.out.println("Delete islemi gerceklesmedi!...");
+		}
+		else
+		{
+			System.out.println("Delete iIslem gerceklesti.");
+		}
+		return count;
+	}
 	
 	public List<User> getAllUsers(User temp) throws SQLException //exception user interface'e gonderiyoruz. Yoksa konsola basilir. Yani cagrildigi yerin catch'ine git diyoruz.
 	{
 		List<User> users = new ArrayList<User>();
+		int count=0;
 		ConnectionManager temp2 = ConnectionManager.getInstance();
 		Connection conn = temp2.getConnection();
 		Statement stmt;
 		stmt = conn.createStatement();
-		String sql = "select id, usrname, password from kullanici";
+		String sql = "select id, usrname, password from kullanici where deleted=false";
 		System.out.println(sql);
 		ResultSet rs = stmt.executeQuery(sql);
 		System.out.println(sql);
@@ -55,6 +94,8 @@ public class UserDAO {
 			nusr.setPassword(rs.getString("password"));
 			nusr.setId(rs.getInt("id"));
 			users.add(nusr);
+			System.out.println("getall: "+users.get(count).getUsername());
+			count++;
 		}
 		return users;
 	}
