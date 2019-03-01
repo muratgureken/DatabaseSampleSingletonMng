@@ -26,7 +26,7 @@ public class GirisFrame extends JFrame{
 	
 	private void initialize()
 	{
-		setTitle("Kullaniici Giris Ekrani");
+		setTitle("User Database Entrance");
 		setBounds(100,100,300,350);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
@@ -41,19 +41,19 @@ public class GirisFrame extends JFrame{
 		getContentPane().add(txtSifre);
 		txtSifre.setColumns(10);
 		
-		JLabel lblkullaniciadi = new JLabel("Kullanici Adi");
-		lblkullaniciadi.setBounds(52, 41, 46, 14);
+		JLabel lblkullaniciadi = new JLabel("Username");
+		lblkullaniciadi.setBounds(52, 41, 75, 14);
 		getContentPane().add(lblkullaniciadi);
 		
-		JLabel lblifre = new JLabel("\u015Fifre");
-		lblifre.setBounds(52, 72, 46, 14);
+		JLabel lblifre = new JLabel("Password");
+		lblifre.setBounds(52, 72, 75, 14);
 		getContentPane().add(lblifre);
 		
-		JButton btnIptal = new JButton("\u0130ptal");
+		JButton btnIptal = new JButton("Cancel");
 		btnIptal.setBounds(36, 152, 91, 23);
 		getContentPane().add(btnIptal);
 		
-		JButton btnGiri = new JButton("Giri\u015F");
+		JButton btnGiri = new JButton("Connect");
 		btnGiri.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {

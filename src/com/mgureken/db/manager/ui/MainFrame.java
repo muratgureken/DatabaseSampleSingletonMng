@@ -26,7 +26,7 @@ public class MainFrame extends JFrame{
 
 	private void initialize()
 	{
-		setTitle("Ana Ekran");
+		setTitle("Database");
 		setBounds(100,100,463,352);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
@@ -57,7 +57,7 @@ public class MainFrame extends JFrame{
 		table.setRowSelectionAllowed(true);
 		scrollPane.setColumnHeaderView(table);
 
-		btnGncelle = new JButton("G\u00FCncelle");
+		btnGncelle = new JButton("Update");
 		btnGncelle.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				guncelleSelected = true;
@@ -72,7 +72,7 @@ public class MainFrame extends JFrame{
 		btnGncelle.setBounds(315, 78, 89, 23);
 		getContentPane().add(btnGncelle);
 
-		btnSil = new JButton("Sil");
+		btnSil = new JButton("Delete");
 		btnSil.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				guncelleSelected = false;
@@ -87,7 +87,7 @@ public class MainFrame extends JFrame{
 		btnSil.setBounds(315, 112, 89, 23);
 		getContentPane().add(btnSil);
 
-		btnVazgec = new JButton("Vazgec");
+		btnVazgec = new JButton("Cancel");
 		btnVazgec.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				guncelleSelected = false;
@@ -102,7 +102,7 @@ public class MainFrame extends JFrame{
 		btnVazgec.setBounds(315, 180, 89, 23);
 		getContentPane().add(btnVazgec);
 
-		btnTamam = new JButton("Tamam");
+		btnTamam = new JButton("OK");
 		btnTamam.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				int rowNumber = table.getRowCount();
