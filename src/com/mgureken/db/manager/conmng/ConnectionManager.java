@@ -9,9 +9,9 @@ public class ConnectionManager extends Connections{
 	//constructor kendi icerisinde acilacak.
 	private static ConnectionManager instance=null;
 	private Connection conn;
-	private String url="jdbc:postgresql://127.0.0.1:5432/KullaniciYonetimi";
+	/*private String url="jdbc:postgresql://127.0.0.1:5432/KullaniciYonetimi";
 	private String username="postgres";
-	private String password="sifre123";
+	private String password="sifre123";*/
 	private int connNo;
 
 	private ConnectionManager() throws SQLException{
@@ -38,6 +38,7 @@ public class ConnectionManager extends Connections{
 	public void closeConnection(int i)
 	{
 		Connections.setConnInUse(false, i);
+		Connections.CloseTheConnection(i);
 	}
 
 	//disaridan gorulebilen, connection saglayan metot
@@ -55,7 +56,12 @@ public class ConnectionManager extends Connections{
 				{
 					Connections.setConnInUse(true, i);
 					connNo = i;
-					conn1 = Connections.getConns(i);
+					try {
+						conn1 = Connections.TryConnection(i);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}//getConns(i);
 					System.out.println("connection:"+conn1);
 					break;
 				}
@@ -71,9 +77,15 @@ public class ConnectionManager extends Connections{
 				{
 					Connections.setConnInUse(true, i);
 					connNo = i;
-					conn1 = Connections.getConns(i);
+					try {
+						conn1 = Connections.TryConnection(i);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}//getConns(i);
 					System.out.println("connection:"+conn1);
-					break;				}
+					break;				
+				}
 			}			
 		}
 		return conn1;

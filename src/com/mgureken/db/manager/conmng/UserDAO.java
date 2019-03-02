@@ -13,7 +13,7 @@ import com.mgureken.db.manager.model.User;
 import com.mgureken.db.manager.ui.GirisFrame;
 import com.mgureken.db.manager.ui.MainFrame;
 
-public class UserDAO extends PriveledgeControl{
+public class UserDAO extends PrivilegeControl{
 	private int connNo;
 	ConnectionManager temp;
 	Connection conn;
@@ -21,16 +21,17 @@ public class UserDAO extends PriveledgeControl{
 
 	public UserDAO() throws SQLException{
 		temp = ConnectionManager.getInstance();
+		System.out.println("Got connectionManager instance");
 		/*conn = temp.getConnection(1);
 		connNo = temp.getConnNo();*/
 	}
 
 	public void connectToDatabase(String str)
 	{
-		int index = PriveledgeControl.nameList.indexOf(str);
+		int index = PrivilegeControl.getNameList().indexOf(str);
 		if(index>=0)
 		{
-			int prvl = PriveledgeControl.prv.get(index);
+			int prvl = PrivilegeControl.getPrv().get(index);
 			System.out.println("Priveledge of User: "+prvl);
 			conn = temp.getConnection(prvl);
 			System.out.println("connected:"+conn);

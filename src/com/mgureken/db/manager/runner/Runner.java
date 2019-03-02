@@ -9,8 +9,6 @@ public class Runner {
 		new GirisFrame().setVisible(true);
 		new GirisFrame().setVisible(true);
 		new GirisFrame().setVisible(true);
-		/*new GirisFrame().setVisible(true);
-		new GirisFrame().setVisible(true);*/
 	}
 
 }
