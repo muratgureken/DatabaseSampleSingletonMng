@@ -15,19 +15,24 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 public class MainFrame extends JFrame{
 	private JTable table;
+	private String userIn;
 	JButton btnSil, btnVazgec, btnTamam, btnGncelle;
 	boolean silSelected=false, guncelleSelected=false;
 	private JButton btnExitDatabase;
-	public MainFrame() throws SQLException{
+	public MainFrame(String userIn) throws SQLException{
+		this.userIn = userIn;
 		initialize();
 	}
 
-	private void initialize()
+	private void initialize() throws SQLException
 	{
-		setTitle("Database");
+		setTitle("User: "+userIn);
 		setBounds(100,100,463,352);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
@@ -35,22 +40,20 @@ public class MainFrame extends JFrame{
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(10, 32, 272, 280);
 		getContentPane().add(scrollPane);
-		UserDAO dao = new UserDAO();
+		UserDAO dao;
 		String[][] data = null;
 		String[] columnNames = {"id","Kullanýcý adi","Þifre"};
-		try {
-			List<User> liste = dao.getAllUsers(new User());
-			data = new String[liste.size()][3];
-			for(int i=0;i<liste.size();i++)
-			{
-				data[i][0] = ""+liste.get(i).getId();
-				data[i][1] = liste.get(i).getUsername();
-				data[i][2] = liste.get(i).getPassword();
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 
+		dao = new UserDAO();
+		dao.connectToDatabase(this.userIn);
+		List<User> liste = dao.getAllUsers(new User());
+		data = new String[liste.size()][3];
+		for(int i=0;i<liste.size();i++)
+		{
+			data[i][0] = ""+liste.get(i).getId();
+			data[i][1] = liste.get(i).getUsername();
+			data[i][2] = liste.get(i).getPassword();
+		}
 
 		table = new JTable(data,columnNames);
 		table.setEnabled(false);
@@ -155,21 +158,21 @@ public class MainFrame extends JFrame{
 						table.setValueAt(data2[i][1], i, 1);
 						table.setValueAt(data2[i][2], i, 2);
 					}
-					
+
 					//System.out.println("deletion: from:"+liste2.size()+" to:"+rowNumber);
-					
+
 					for(int i=liste2.size();i<rowNumber;i++)
 					{
 						table.setValueAt("", i, 0);
 						table.setValueAt("", i, 1);
 						table.setValueAt("", i, 2);
 					}
-					
+
 				} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
 				guncelleSelected = false;
 				silSelected = false;
 				btnSil.setEnabled(true);
@@ -188,11 +191,12 @@ public class MainFrame extends JFrame{
 		btnVazgec.setEnabled(false);
 		btnTamam.setEnabled(false);
 		table.setEnabled(false);
-		
+
 		btnExitDatabase = new JButton("Exit DB");
 		btnExitDatabase.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//yeni ekran acilir.
+				dao.closeConnection();
 				GirisFrame grsfr = new GirisFrame();
 				grsfr.setVisible(true);
 				MainFrame.this.setVisible(false);
@@ -200,5 +204,18 @@ public class MainFrame extends JFrame{
 		});
 		btnExitDatabase.setBounds(315, 214, 89, 23);
 		getContentPane().add(btnExitDatabase);
+		
+		JMenuBar menuBar = new JMenuBar();
+		menuBar.setBounds(0, 0, 455, 21);
+		getContentPane().add(menuBar);
+		
+		JMenu mnDosya = new JMenu("Dosya");
+		menuBar.add(mnDosya);
+		
+		JMenuItem mnýtmYeni = new JMenuItem("Yeni");
+		mnDosya.add(mnýtmYeni);
+		
+		JMenuItem mnýtmA = new JMenuItem("A\u00E7");
+		mnDosya.add(mnýtmA);
 	}
 }
