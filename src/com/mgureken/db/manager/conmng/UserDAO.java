@@ -91,7 +91,7 @@ public class UserDAO extends PrivilegeControl{
 		return usr;
 	}
 
-	public void closeConnection()
+	public void closeConnection() throws SQLException
 	{
 		temp.closeConnection(connNo);
 	}

@@ -196,7 +196,12 @@ public class MainFrame extends JFrame{
 		btnExitDatabase.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//yeni ekran acilir.
-				dao.closeConnection();
+				try {
+					dao.closeConnection();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				GirisFrame grsfr = new GirisFrame();
 				grsfr.setVisible(true);
 				MainFrame.this.setVisible(false);

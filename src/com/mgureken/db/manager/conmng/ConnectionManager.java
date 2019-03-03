@@ -35,7 +35,7 @@ public class ConnectionManager extends Connections{
 	}
 
 
-	public void closeConnection(int i)
+	public void closeConnection(int i) throws SQLException
 	{
 		Connections.setConnInUse(false, i);
 		Connections.CloseTheConnection(i);

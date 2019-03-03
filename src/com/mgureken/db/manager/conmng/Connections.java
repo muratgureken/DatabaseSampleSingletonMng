@@ -12,7 +12,7 @@ public abstract class Connections {
 	private static Connection[] Conns;
 	private static String url="jdbc:postgresql://127.0.0.1:5432/KullaniciYonetimi";
 	private static String username="postgres";
-	private static String password="sifre123";
+	private static String password="root";
 	
 	static
 	{
@@ -47,14 +47,23 @@ public abstract class Connections {
 		return Conns[i];
 	}
 	
-	public static boolean CloseTheConnection(int i)
+	public static boolean CloseTheConnection(int i) throws SQLException
 	{
 		boolean connSuccess = true;
 		try {
 			Conns[i].close();
 		} catch (SQLException e) {
-			connSuccess = false;
 			e.printStackTrace();
+		}
+		
+		if(Conns[i].isClosed())
+		{
+			System.out.println("Connection-"+i+" is closed.");
+		}
+		else
+		{
+			System.out.println("Connection-"+i+" close is not successful.");
+			connSuccess = false;
 		}
 		
 		return connSuccess;

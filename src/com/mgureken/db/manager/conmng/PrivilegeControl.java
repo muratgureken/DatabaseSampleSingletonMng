@@ -13,7 +13,7 @@ public abstract class PrivilegeControl {
 	private static Connection conn2=null;
 	private static String url="jdbc:postgresql://127.0.0.1:5432/KullaniciYonetimi";
 	private static String username="postgres";
-	private static String password="sifre123";
+	private static String password="root";
 	private static LinkedList<String> nameList;
 	private static LinkedList<Integer> prv;	
 	
